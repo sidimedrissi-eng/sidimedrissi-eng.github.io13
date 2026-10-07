@@ -1,1 +1,153 @@
-# sidimedrissi-eng.github.io13
+<!DOCTYPE html>
+<html lang="fr">
+<head> 
+<!-- Google tag (gtag.js) -->
+<script async src="https://googletagmanager.com"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5WHLD6GBZB');
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tableau de bord financier éducatif et simulation de gestion.">
+  <title>Tableau de bord financier</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#17202a}
+    .app{max-width:1200px;margin:auto;padding:24px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+    h1,h2,h3{margin-top:0}.tiktok-btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #010101;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  transition: transform 0.2s;
+  margin: 15px 0;
+}
+.tiktok-btn:hover {
+  transform: scale(1.05);
+}
+.tiktok-icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+    .sub{color:#667085}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 3px 14px rgba(0,0,0,.07);margin-bottom:16px}
+    label{font-weight:700;display:block;margin-bottom:7px}
+    input,select{width:100%;padding:11px 12px;border:1px solid #d0d5dd;border-radius:10px;background:#fff;font-size:15px}
+    input:focus,select:focus{outline:2px solid #b9d6ff;border-color:#315b9b}
+    button{border:0;border-radius:10px;padding:11px 15px;cursor:pointer;font-weight:700;background:#17202a;color:#fff}
+    button.secondary{background:#e9edf2;color:#17202a}
+    button.danger{background:#b42318}
+    .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+    .metric{background:#fff;border-radius:14px;padding:16px;box-shadow:0 3px 14px rgba(0,0,0,.06)}
+    .metric b{display:block;font-size:22px;margin-top:8px}
+    .info{display:inline-flex;width:19px;height:19px;border-radius:50%;align-items:center;justify-content:center;background:#e8eef8;color:#315b9b;font-size:12px;cursor:pointer}
+    .definition{display:none;margin-top:8px;padding:10px;border-left:3px solid #315b9b;background:#f5f8fc;color:#475467;font-size:14px;border-radius:6px}
+    .definition.active{display:block}
+    canvas{display:block;width:100%;height:340px;border:1px solid #eef0f3;border-radius:12px;background:#fff}
+    .history,.people,.directory{margin-top:12px}
+    .item{border:1px solid #eaecf0;border-radius:10px;padding:12px;margin-top:8px;background:#fafbfc}
+    .item-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+    .positive{color:#087443}.negative{color:#b42318}
+    .dot{font-size:14px}
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    th,td{padding:10px;border-bottom:1px solid #eaecf0;text-align:left;white-space:nowrap}
+    th{background:#f8f9fb}
+    .small{font-size:13px;color:#667085}
+    .tip{position:fixed;display:none;background:#17202a;color:#fff;padding:10px 12px;border-radius:9px;max-width:300px;font-size:14px;z-index:20;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+    .currency-results{position:absolute;left:0;right:0;top:100%;z-index:10;background:#fff;border:1px solid #d0d5dd;border-radius:10px;max-height:220px;overflow:auto;box-shadow:0 5px 18px rgba(0,0,0,.12)}
+    .currency-option{padding:9px 11px;cursor:pointer}.currency-option:hover{background:#f2f4f7}
+    .relative{position:relative}
+    .empty{color:#667085;padding:8px 0}
+    @media(max-width:800px){.metrics{grid-template-columns:repeat(2,1fr)}.row3{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+    @media(max-width:520px){.app{padding:14px}.metrics{grid-template-columns:1fr}.row{grid-template-columns:1fr}.card{padding:15px}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div>
+        <h1>Tableau de bord financier</h1>
+        <div class="sub">Outil éducatif de calcul et de simulation. Les données sont enregistrées uniquement dans ce navigateur.</div>
+      </div>
+      <button class="danger" type="button" id="resetBtn">Réinitialiser les données</button>
+    </header>
+
+    <!-- Section du bouton TikTok centré pour votre ami -->
+    <div style="text-align: center; margin-bottom: 25px;">
+      <a href="https://tiktok.com" target="_blank" class="tiktok-btn">
+        <span class="tiktok-icon">🎵</span> Soutenir mon ami sur TikTok
+      </a>
+    </div>
+
+    <section class="card">
+      <h2>Paramètres financiers</h2>
+      <div class="grid">
+        <div>
+          <label for="ca">Chiffre d’affaires <span class="info" data-definition="Le chiffre d’affaires correspond au total des ventes réalisées avant de retirer les charges.">?</span></label>
+          <input id="ca" type="number" step="0.01" min="0" value="15000">
+        </div>
+        <div>
+          <label for="charges">Charges <span class="info" data-definition="Les charges sont les dépenses prises en compte pour calculer le bénéfice.">?</span></label>
+          <input id="charges" type="number" step="0.01" min="0" value="9000">
+        </div>
+        <div>
+          <label for="objectif">Objectif <span class="info" data-definition="L’objectif est le montant de chiffre d’affaires que tu souhaites atteindre.">?</span></label>
+          <input id="objectif" type="number" step="0.01" min="0" value="18000">
+        </div>
+        <div class="relative">
+          <label for="currencySearch">Devise <span class="info" data-definition="La devise sert à afficher les montants avec le code monétaire choisi. Le calcul reste une simulation.">?</span></label>
+          <input id="currencySearch" type="text" autocomplete="off" placeholder="Rechercher : MAD, EUR, USD...">
+          <div id="currencyResults" class="currency-results" hidden></div>
+          <div class="small" id="selectedCurrencyText">Devise sélectionnée : EUR</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics">
+      <div class="metric"><span>CA <span class="info" data-definition="Chiffre d’affaires : total des ventes avant les charges.">?</span></span><b id="resultCA">0 EUR</b></div>
+      <div class="metric"><span>Bénéfice <span class="info" data-definition="Bénéfice = chiffre d’affaires − charges.">?</span></span><b id="resultBenefice">0 EUR</b></div>
+      <div class="metric"><span>Marge bénéficiaire <span class="info" data-definition="La marge bénéficiaire indique la part du chiffre d’affaires qui reste après les charges, exprimée en pourcentage.">?</span></span><b id="resultMarge">0 %</b></div>
+      <div class="metric"><span>Écart à l’objectif <span class="info" data-definition="Écart = chiffre d’affaires − objectif.">?</span></span><b id="resultEcart">0 EUR</b></div>
+    </section>
+
+    <section class="card">
+      <h2>Comparaison financière <span class="info" data-definition="Ce graphique compare le chiffre d’affaires, les charges, le bénéfice et l’objectif.">?</span></h2>
+      <canvas id="chart"></canvas>
+    </section>
+
+    <section class="card">
+      <h2>Personnes</h2>
+      <div class="row">
+        <div><label for="personName">Nom de la personne</label><input id="personName" type="text" placeholder="Ex. Alex"></div>
+        <div class="actions" style="align-items:end"><button type="button" id="addPersonBtn">Enregistrer la personne</button></div>
+      </div>
+      <div id="peopleList" class="people"></div>
+    </section>
+
+    <section class="card">
+      <h2>Offres et produits</h2>
+      <div class="row3">
+        <div><label for="offerName">Nom de l’offre / produit</label><input id="offerName" type="text" placeholder="Ex. Service Pro"></div>
+        <div><label for="offerPrice">Prix unitaire</label><input id="offerPrice" type="number" step="0.01" min="0" value="100"></div>
+        <div class="actions" style="align-items:end"><button type="button" id="addOfferBtn">Créer l’offre</button></div>
+      </div>
+      <div id="offersList" class="directory"></div>
+    </section>
+  </div>
+</body>
+</html>
